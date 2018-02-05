@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2018. Chuyang LIU all right Reserved.
+ * You may used, distribute or modify this code under terms and conditions of the Code of Student Behavior at University of Alberta.
+ * You can find a copy of the license in this project. Otherwise connect chuyang1@ualberta.ca
+ */
+
 package com.example.suqing.chuyang1_subbook;
 
 import android.content.Context;
@@ -34,6 +40,11 @@ import java.util.ArrayList;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
+/**
+ * This class represent the main activity which is the main page
+ * Created by chuyang1 on 02/02/2018
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     protected static final String FILENAME = "sublist.sac";
@@ -43,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
     protected ArrayList<Sub> subArrayList = new ArrayList<Sub>();
     private ArrayAdapter<String> subArrayAdapter;
 
+    /**
+     * The base of the activity
+     * @param savedInstanceState system control
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +116,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * The base function of activity run after on_create()
+     */
+
     @Override
     protected void onStart() {
         // TODO Auto-generated method stub
@@ -112,8 +131,15 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<String> name = new ArrayList<String>();
 
+        if (subArrayList == null) {
+            subArrayList = new ArrayList<Sub>();
+        }
+
         for (int i = 0; i < subArrayList.size(); i++) {
-            name.add(subArrayList.get(i).getName());
+            String temp = subArrayList.get(i).getName() + "      " + subArrayList.get(i).getYear()+"-"
+                    + subArrayList.get(i).getMonth() + "-" + subArrayList.get(i).getDay() + "   " +
+                    subArrayList.get(i).getCharge();
+            name.add(temp);
         }
 
         subArrayAdapter = new ArrayAdapter<String>(this,
@@ -124,7 +150,9 @@ public class MainActivity extends AppCompatActivity {
         show_sum();
     }
 
-
+    /**
+     * Control the show sum part of the main page
+     */
 
     protected void show_sum() {
         double sum = 0;
@@ -136,6 +164,10 @@ public class MainActivity extends AppCompatActivity {
         TextView sumTextView = (TextView) findViewById(R.id.textViewSum);
         sumTextView.setText("Sum: " + String.valueOf(sum));
     }
+
+    /**
+     * load function of the app in main class
+     */
 
     protected void loadFromFile() {
         Log.i("LifeCycle ---->", "load file is called");
@@ -153,6 +185,11 @@ public class MainActivity extends AppCompatActivity {
             subArrayList = new ArrayList<Sub>();
         }
     }
+
+    /**
+     * save the file to avoid data lost
+     *
+     */
 
     protected void saveInFile() {
         Log.i("LifeCycle ---->", "save file is called");
@@ -173,6 +210,12 @@ public class MainActivity extends AppCompatActivity {
             throw new RuntimeException();
         }
     }
+
+    /**
+     * The action of click on main menu
+     * @param menu
+     * @return bool true
+     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -196,12 +239,24 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * the action of click on add new button
+     * @param view view click
+     */
+
     public void add_new(View view) {
         Log.i("LifeCycle ---->", "add new is called");
         Intent intent = new Intent(this, Add_sub.class);
         startActivityForResult(intent, 1);;
     }
 
+
+    /**
+     * the action of get result of add_new
+     * @param requestCode int 1
+     * @param resultCode int should be 1
+     * @param data intent data tran file
+     */
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
