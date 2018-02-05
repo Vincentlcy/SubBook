@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         subList = (ListView) findViewById(R.id.SubList);
-        Sub sub = new Sub("1", 2018, 1, 12, 8.97, "");
 
         subList.setClickable(true);
         subList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -100,9 +99,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-        subArrayList.add(sub);
-        saveInFile();
     }
 
     @Override
